@@ -15,9 +15,11 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
     elif event.key == pygame.K_DOWN:
         ship.moving_down = True
     elif event.key == pygame.K_SPACE:
+        #Если количество пуль на экране меньше 3
+        if len(bullets) < ai_settings.bullets_allowed:
         # Создаем пулю и включаем её в список пуль
-        new_bullet = Bullet(ai_settings, screen, ship)
-        bullets.add(new_bullet)
+            new_bullet = Bullet(ai_settings, screen, ship)
+            bullets.add(new_bullet)
 
 
 def check_keyup_events(event, ship):
