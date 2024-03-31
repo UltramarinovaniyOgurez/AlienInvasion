@@ -17,13 +17,13 @@ def run_game():
     bullets = Group()
     #Запуск основного цикла игры
     while True:
+        # Проверка событий клавиатуры
         gf.check_events(ai_settings,screen,ship,bullets)
+        # Обновление позиции корабля
         ship.update()
-        bullets.update()
-        for bullet in bullets.copy():
-            if bullet.rect.bottom <= 0:
-                bullets.remove(bullet)
-        
+        # обновление позиций пуль
+        gf.update_bullets(bullets)
+        # Обновление экрана
         gf.update_screen(ai_settings,screen,ship,bullets)
 
 
