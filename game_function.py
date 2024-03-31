@@ -1,7 +1,8 @@
 import sys
 
 import pygame
-from bullet import Bullet
+# from bullet import Bullet
+from side_shooting.side_bullets import Bullet
 
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
@@ -67,6 +68,10 @@ def update_bullets(bullets):
     '''Обновляет позиции пуль и уничтожает старые пули'''
     bullets.update()
     #Удаление пуль за краем экрана
+    # for bullet in bullets.copy():
+    #     if bullet.rect.bottom <= 0:
+    #         bullets.remove(bullet)
+    #Для стрельбы вправо
     for bullet in bullets.copy():
-        if bullet.rect.bottom <= 0:
+        if bullet.rect.right >= bullet.screen_rect.right:
             bullets.remove(bullet)

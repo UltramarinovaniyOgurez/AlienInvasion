@@ -1,4 +1,5 @@
 import pygame
+'''Корабль с боку экрана'''
 
 class Ship():
     def __init__(self,ai_settings,screen):
@@ -6,12 +7,13 @@ class Ship():
         self.screen = screen
         self.ai_settings = ai_settings
         # Загрузка изображения корабля и получение прямоугольника
-        self.image = pygame.image.load('images/spaceship.bmp')
+        self.image = pygame.image.load('C:\MyPython\pythonProject\AlienInvasion/images/spaceship_left_side.bmp')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
-        # Каждый новый корабль появляется у нижнего края экрана по центру
-        self.rect.centerx = self.screen_rect.centerx
-        self.rect.bottom = self.screen_rect.bottom
+
+        #Присвоение кораблю координаты центра экрана по оси У
+        self.rect.centery = self.screen_rect.centery
+        self.rect.left = 0
         #Сохранение вещественной координаты центра корабля
         self.centerx = float(self.rect.centerx)
         self.centery = float(self.rect.centery)

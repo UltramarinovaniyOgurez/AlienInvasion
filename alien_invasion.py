@@ -2,7 +2,8 @@ import pygame
 from pygame.sprite import Group
 
 from settings import Settings
-from ship import Ship
+# from ship import Ship
+from side_shooting.side_ship import Ship
 import game_function as gf
 def run_game():
     # Инициализирует пайгейм,настройки и объект экрана
