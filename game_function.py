@@ -1,8 +1,9 @@
 import sys
 
 import pygame
-# from bullet import Bullet
-from side_shooting.side_bullets import Bullet
+from bullet import Bullet
+# from side_shooting.side_bullets import Bullet
+from alien import Alien
 
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
@@ -17,6 +18,8 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
         ship.moving_down = True
     elif event.key == pygame.K_SPACE:
         fire_bullet(ai_settings, screen, ship, bullets)
+    elif event.key == pygame.K_q:
+        sys.exit()
 
 
 def fire_bullet(ai_settings,screen,ship,bullets):
@@ -50,7 +53,7 @@ def check_events(ai_settings,screen,ship,bullets):
             check_keyup_events(event, ship)
 
 
-def update_screen(ai_settings,screen,ship,bullets):
+def update_screen(ai_settings,screen,ship,aliens,bullets):
     '''Обновляет изображения на экране и отображает новый экран'''
     # При каждом проходе цикла перерисовывается экран
     # Заполнение экрана фоновым цветом
@@ -60,6 +63,7 @@ def update_screen(ai_settings,screen,ship,bullets):
         bullet.draw_bullet()
     # Вывод корабля в текущей позиции
     ship.bltime()
+    aliens.draw(screen)
     # Отображение последнего прорисованного экрана
     pygame.display.flip()
 
@@ -67,11 +71,30 @@ def update_screen(ai_settings,screen,ship,bullets):
 def update_bullets(bullets):
     '''Обновляет позиции пуль и уничтожает старые пули'''
     bullets.update()
-    #Удаление пуль за краем экрана
-    # for bullet in bullets.copy():
-    #     if bullet.rect.bottom <= 0:
-    #         bullets.remove(bullet)
-    #Для стрельбы вправо
+    # Удаление пуль за краем экрана
     for bullet in bullets.copy():
-        if bullet.rect.right >= bullet.screen_rect.right:
+        if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+
+#------------------------------------------------------------------------------------------------------
+    # Для стрельбы вправо
+    # for bullet in bullets.copy():
+    #     if bullet.rect.right >= bullet.screen_rect.right:
+    #         bullets.remove(bullet)
+#--------------------------------------------------------------------------------------------------------
+
+def create_fleet(ai_settings,screen,aliens):
+    '''Функция для создания флота чужих'''
+    #Создание пришельца и вычисление количества чужих кораблей в ряду
+    alien = Alien(ai_settings,screen)
+    alien_width = alien.rect.width
+
+    available_space_x = ai_settings.screen_width - 2*alien_width
+    number_aliens_x = int(available_space_x/(2*alien_width))
+    # Создание первого ряда
+    for alien_number in range(number_aliens_x):
+        # Создание пришельца и его размещение в ряду
+        alien = Alien(ai_settings,screen)
+        alien.x = alien_width + 2*alien_width*alien_number
+        alien.rect.x = alien.x
+        aliens.add(alien)

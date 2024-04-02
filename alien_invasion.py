@@ -2,9 +2,18 @@ import pygame
 from pygame.sprite import Group
 
 from settings import Settings
-# from ship import Ship
-from side_shooting.side_ship import Ship
+# для корабля внизу экрана
+from ship import Ship
+from alien import Alien
 import game_function as gf
+
+
+#-----------------------------------------------------------------------------------------------------
+# для корабля слева
+# from side_shooting.side_ship import Ship
+#-----------------------------------------------------------------------------------------------------
+
+
 def run_game():
     # Инициализирует пайгейм,настройки и объект экрана
     pygame.init()
@@ -16,6 +25,9 @@ def run_game():
     ship = Ship(ai_settings,screen)
     #Создание группы для пуль
     bullets = Group()
+    #Создание флота пришельцев
+    aliens = Group()
+    gf.create_fleet(ai_settings,screen,aliens)
     #Запуск основного цикла игры
     while True:
         # Проверка событий клавиатуры
@@ -25,7 +37,7 @@ def run_game():
         # обновление позиций пуль
         gf.update_bullets(bullets)
         # Обновление экрана
-        gf.update_screen(ai_settings,screen,ship,bullets)
+        gf.update_screen(ai_settings,screen,ship,aliens,bullets)
 
 
 run_game()
