@@ -21,13 +21,20 @@ def run_game():
 
     screen = pygame.display.set_mode((ai_settings.screen_width,ai_settings.screen_height))
     pygame.display.set_caption('Alien Invasion')
+
+
+    #Создание группы фоновых звезд
+    stars = Group()
+    gf.create_stars(ai_settings,screen,stars)
+
+
     #Создание корабля
     ship = Ship(ai_settings,screen)
     #Создание группы для пуль
     bullets = Group()
     #Создание флота пришельцев
     aliens = Group()
-    gf.create_fleet(ai_settings,screen,aliens)
+    gf.create_fleet(ai_settings,screen,ship,aliens)
     #Запуск основного цикла игры
     while True:
         # Проверка событий клавиатуры
@@ -37,7 +44,7 @@ def run_game():
         # обновление позиций пуль
         gf.update_bullets(bullets)
         # Обновление экрана
-        gf.update_screen(ai_settings,screen,ship,aliens,bullets)
+        gf.update_screen(ai_settings,screen,stars,ship,aliens,bullets)
 
 
 run_game()

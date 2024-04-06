@@ -6,7 +6,7 @@ class Ship():
         self.screen = screen
         self.ai_settings = ai_settings
         # Загрузка изображения корабля и получение прямоугольника
-        self.image = pygame.image.load('images/spaceship.bmp')
+        self.image = pygame.image.load('images/spaceship1.bmp')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         # Каждый новый корабль появляется у нижнего края экрана по центру

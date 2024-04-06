@@ -1,9 +1,12 @@
 import sys
+import random
 
 import pygame
 from bullet import Bullet
 # from side_shooting.side_bullets import Bullet
 from alien import Alien
+
+from star import Star
 
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
@@ -53,11 +56,14 @@ def check_events(ai_settings,screen,ship,bullets):
             check_keyup_events(event, ship)
 
 
-def update_screen(ai_settings,screen,ship,aliens,bullets):
+def update_screen(ai_settings,screen,stars,ship,aliens,bullets):
     '''Обновляет изображения на экране и отображает новый экран'''
     # При каждом проходе цикла перерисовывается экран
     # Заполнение экрана фоновым цветом
     screen.fill(ai_settings.bg_color)
+    #Здесь будет вывод всех звезд
+    for star in stars.sprites():
+        star.bltime()
     # Вывод на экран всех пуль из группы bullets
     for bullet in bullets.sprites():
         bullet.draw_bullet()
@@ -83,18 +89,49 @@ def update_bullets(bullets):
     #         bullets.remove(bullet)
 #--------------------------------------------------------------------------------------------------------
 
-def create_fleet(ai_settings,screen,aliens):
+def create_fleet(ai_settings,screen,ship,aliens):
     '''Функция для создания флота чужих'''
     #Создание пришельца и вычисление количества чужих кораблей в ряду
     alien = Alien(ai_settings,screen)
-    alien_width = alien.rect.width
+    number_aliens_x = get_number_aliens_x(ai_settings,alien.rect.width)
+    number_row = get_number_rows(ai_settings,ship.rect.height,alien.rect.height)
 
-    available_space_x = ai_settings.screen_width - 2*alien_width
-    number_aliens_x = int(available_space_x/(2*alien_width))
     # Создание первого ряда
-    for alien_number in range(number_aliens_x):
-        # Создание пришельца и его размещение в ряду
-        alien = Alien(ai_settings,screen)
-        alien.x = alien_width + 2*alien_width*alien_number
-        alien.rect.x = alien.x
-        aliens.add(alien)
+    for row_number in range(number_row):
+        for alien_number in range(number_aliens_x):
+            create_alien(ai_settings,screen,aliens,alien_number,row_number)
+
+
+def get_number_aliens_x(ai_settings,alien_width):
+    '''Вычисление количества пришельцев в ряду'''
+    available_space_x = ai_settings.screen_width - 2 * alien_width
+    number_aliens_x = int(available_space_x / (2 * alien_width))
+    return number_aliens_x
+
+def create_alien(ai_settings,screen,aliens,alien_number,row_number):
+    '''Создает пришельца и размещает его в ряду'''
+    alien = Alien(ai_settings, screen)
+    alien_width = alien.rect.width
+    alien.x = alien_width + 2 * alien_width * alien_number
+    alien.rect.x = alien.x
+    alien.rect.y = alien.rect.height + 2*alien.rect.height*row_number
+    aliens.add(alien)
+
+
+def get_number_rows(ai_settings,ship_height,alien_height):
+    '''Определение количества рядов'''
+    availiable_space_y = ai_settings.screen_height - 3 * alien_height - ship_height
+    number_rows = int(availiable_space_y / (2 * alien_height))
+    return number_rows
+
+
+def create_stars(ai_settings,screen,stars):
+    number_stars = random.randint(50,100)
+    for star_number in range(number_stars):
+        create_star(ai_settings,screen,stars)
+
+def create_star(ai_settings,screen,stars):
+    star = Star(ai_settings,screen)
+    star.rect.x = random.randint(0,ai_settings.screen_width)
+    star.rect.y = random.randint(0, ai_settings.screen_height)
+    stars.add(star)
