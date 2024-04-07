@@ -43,6 +43,8 @@ def run_game():
         ship.update()
         # обновление позиций пуль
         gf.update_bullets(bullets)
+        #Обновление позиций пришельцев
+        gf.update_aliens(ai_settings,aliens)
         # Обновление экрана
         gf.update_screen(ai_settings,screen,stars,ship,aliens,bullets)
 
