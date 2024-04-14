@@ -18,14 +18,15 @@ def run_game():
     # Инициализирует пайгейм,настройки и объект экрана
     pygame.init()
     ai_settings = Settings()
-
     screen = pygame.display.set_mode((ai_settings.screen_width,ai_settings.screen_height))
     pygame.display.set_caption('Alien Invasion')
 
 
+#-----------------------------------------------------------------------------------------------------------------------
     #Создание группы фоновых звезд
-    stars = Group()
-    gf.create_stars(ai_settings,screen,stars)
+    # stars = Group()
+    # gf.create_stars(ai_settings,screen,stars)
+#--- -------------------------------------------------------------------------------------------------------------------
 
 
     #Создание корабля
@@ -42,11 +43,12 @@ def run_game():
         # Обновление позиции корабля
         ship.update()
         # обновление позиций пуль
-        gf.update_bullets(bullets)
+        gf.update_bullets(aliens,bullets)
         #Обновление позиций пришельцев
         gf.update_aliens(ai_settings,aliens)
         # Обновление экрана
-        gf.update_screen(ai_settings,screen,stars,ship,aliens,bullets)
+
+        gf.update_screen(ai_settings,screen,ship,aliens,bullets)
 
 
 run_game()

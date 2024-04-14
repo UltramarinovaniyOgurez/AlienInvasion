@@ -2,6 +2,10 @@ import pygame
 from pygame.sprite import Sprite
 
 
+import os
+import random
+
+
 class Alien(Sprite):
     '''Класс для одного корабля чужих'''
 
@@ -11,7 +15,17 @@ class Alien(Sprite):
         self.screen = screen
         self.ai_settings = ai_settings
         # Загрузка изображения чужого и получение прямоугольника
+
+
+        # Выбор случайного корабля
+        # way = 'images/aliens'
+        # pictures = os.listdir(way)
+        # picture = f'{way}/{random.choice(pictures)}'
+        # self.image = pygame.image.load(picture)
+
+
         self.image = pygame.image.load('images/alien1.bmp')
+        self.image.set_colorkey((0, 0, 0))
         self.rect = self.image.get_rect()
         # Назначение каждому новому пришельцу стартовой координаты в левом верхнем углу экрана
         self.rect.x = self.rect.width

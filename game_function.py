@@ -56,14 +56,20 @@ def check_events(ai_settings,screen,ship,bullets):
             check_keyup_events(event, ship)
 
 
-def update_screen(ai_settings,screen,stars,ship,aliens,bullets):
+def update_screen(ai_settings,screen,ship,aliens,bullets):
     '''Обновляет изображения на экране и отображает новый экран'''
     # При каждом проходе цикла перерисовывается экран
+
     # Заполнение экрана фоновым цветом
     screen.fill(ai_settings.bg_color)
+
+# -----------------------------------------------------------------------------------------------------------------------
     #Здесь будет вывод всех звезд
-    for star in stars.sprites():
-        star.bltime()
+    # for star in stars.sprites():
+    #     star.bltime()
+# -----------------------------------------------------------------------------------------------------------------------
+
+
     # Вывод на экран всех пуль из группы bullets
     for bullet in bullets.sprites():
         bullet.draw_bullet()
@@ -74,13 +80,16 @@ def update_screen(ai_settings,screen,stars,ship,aliens,bullets):
     pygame.display.flip()
 
 
-def update_bullets(bullets):
+def update_bullets(aliens,bullets):
     '''Обновляет позиции пуль и уничтожает старые пули'''
     bullets.update()
     # Удаление пуль за краем экрана
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+    # Проверка попаданий в чужих
+    # При попадании удаляем пулю и пришельца
+    # collisions = pygame.sprite.groupcollide(bullets,aliens,True,True)
 
 #------------------------------------------------------------------------------------------------------
     # Для стрельбы вправо
