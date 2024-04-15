@@ -47,7 +47,6 @@ def run_game():
         #Обновление позиций пришельцев
         gf.update_aliens(ai_settings,aliens)
         # Обновление экрана
-
         gf.update_screen(ai_settings,screen,ship,aliens,bullets)
 
 

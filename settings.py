@@ -11,15 +11,15 @@ class Settings():
 
 
         #Настройки корабля
-        self.ship_speed_factor = 1
+        self.ship_speed_factor = 0.5
 
 
 
 
 
         #Настройки пришельцев
-        self.alien_speed_factor = 0.1
-        self.fleet_drop_speed = 0.5
+        self.alien_speed_factor = 0.2
+        self.fleet_drop_speed = 5
         self.fleet_direction = 1
 
 
