@@ -61,8 +61,10 @@ def update_screen(ai_settings,screen,ship,aliens,bullets):
     # При каждом проходе цикла перерисовывается экран
 
     # Заполнение экрана фоновым цветом
-    screen.fill(ai_settings.bg_color)
+    # screen.fill(ai_settings.bg_color)
 
+    #Поставим-ка фоном картинку
+    screen.blit(ai_settings.background_image, (0, 0))
 # -----------------------------------------------------------------------------------------------------------------------
     #Здесь будет вывод всех звезд
     # for star in stars.sprites():
@@ -80,16 +82,27 @@ def update_screen(ai_settings,screen,ship,aliens,bullets):
     pygame.display.flip()
 
 
-def update_bullets(aliens,bullets):
+def update_bullets(ai_settings,screen,ship,aliens,bullets):
     '''Обновляет позиции пуль и уничтожает старые пули'''
     bullets.update()
     # Удаление пуль за краем экрана
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
-    # Проверка попаданий в чужих
+    chek_bullets_alien_collisions(ai_settings,screen,ship,aliens,bullets)
+
+
+
+def chek_bullets_alien_collisions(ai_settings,screen,ship,aliens,bullets):
+    #Обработка случаев столкновения пуль и пришельцев
     # При попадании удаляем пулю и пришельца
-    collisions = pygame.sprite.groupcollide(bullets,aliens,True,True)
+    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    # Добавляем возрождение флота
+    if len(aliens) == 0:
+        # Уничтожаем старые пули, создаем новый флот
+        bullets.empty()
+        create_fleet(ai_settings, screen, ship, aliens)
+
 
 #------------------------------------------------------------------------------------------------------
     # Для стрельбы вправо

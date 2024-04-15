@@ -1,4 +1,4 @@
-
+import pygame
 
 class Settings():
     '''Класс для хранения всех настроек игры'''
@@ -8,6 +8,8 @@ class Settings():
         self.screen_width = 800
         self.screen_height = 600
         self.bg_color = (7,7,9)
+        #Фон - картинка
+        self.background_image = pygame.image.load("images/space.bmp")
 
 
         #Настройки корабля
@@ -18,8 +20,8 @@ class Settings():
 
 
         #Настройки пришельцев
-        self.alien_speed_factor = 0.2
-        self.fleet_drop_speed = 5
+        self.alien_speed_factor = 0.5
+        self.fleet_drop_speed = 10
         self.fleet_direction = 1
 
 

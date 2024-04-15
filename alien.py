@@ -23,9 +23,14 @@ class Alien(Sprite):
         # picture = f'{way}/{random.choice(pictures)}'
         # self.image = pygame.image.load(picture)
 
+        #
+        # self.image = pygame.image.load('images/alien1.bmp')
+        # self.image.set_colorkey((0, 0, 0))
 
-        self.image = pygame.image.load('images/alien1.bmp')
-        self.image.set_colorkey((0, 0, 0))
+        #Другой корабль
+        self.image = pygame.image.load('images/ufo2.png')
+        self.image.set_colorkey((255,255,255))
+
         self.rect = self.image.get_rect()
         # Назначение каждому новому пришельцу стартовой координаты в левом верхнем углу экрана
         self.rect.x = self.rect.width
