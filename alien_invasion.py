@@ -48,7 +48,7 @@ def run_game():
     #Запуск основного цикла игры
     while True:
         # Проверка событий клавиатуры
-        gf.check_events(ai_settings,screen,ship,bullets)
+        gf.check_events(ai_settings,screen,stats,play_button,ship,aliens,bullets)
         if stats.game_active:
         # Обновление позиции корабля
             ship.update()
