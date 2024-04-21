@@ -32,7 +32,7 @@ class Ship():
         #аналогично для левого края
         if self.moving_left and self.rect.left >0:
             self.centerx -= self.ai_settings.ship_speed_factor
-       #Так же для верха и низа
+       # #Так же для верха и низа
         if self.moving_up and self.rect.top > 0:
             self.centery -= self.ai_settings.ship_speed_factor
         if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
@@ -42,3 +42,8 @@ class Ship():
     def bltime(self):
         '''Рисует корабль в текущей позиции'''
         self.screen.blit(self.image,self.rect)
+
+    def center_ship(self):
+        '''Размещаем корабль по центру'''
+        self.centerx = self.screen_rect.centerx
+        self.centery = self.ai_settings.screen_height - self.rect.height / 2

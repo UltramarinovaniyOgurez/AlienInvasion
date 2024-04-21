@@ -1,12 +1,26 @@
 import sys
-import random
-
+# import random
+from time import sleep
 import pygame
 from bullet import Bullet
 # from side_shooting.side_bullets import Bullet
 from alien import Alien
 
 from star import Star
+
+
+def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
+    '''Обработка столкновений корабля и пришельцев'''
+    #Уменьшаем лимит кораблей
+    stats.ships_left -= 1
+    #Очищаем список пуль и пришельцев
+    aliens.empty()
+    bullets.empty()
+    #Создаем новый флот и новый корабль
+    create_fleet(ai_settings,screen,ship,aliens)
+    ship.center_ship()
+    #Пауза
+    sleep(0.5)
 
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
@@ -147,10 +161,14 @@ def get_number_rows(ai_settings,ship_height,alien_height):
     return number_rows
 
 
-def update_aliens(ai_settings,aliens):
+def update_aliens(ai_settings,stats,screen,ship,aliens,bullets):
     '''Проверка на достижение края и обновление позиций всех пришельцев во флоте'''
     check_fleet_edges(ai_settings,aliens)
     aliens.update()
+    #Проверка коллизий корабль-пришелец
+    if pygame.sprite.spritecollideany(ship,aliens):
+        ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
+
 
 
 def check_fleet_edges(ai_settings,aliens):
@@ -172,16 +190,16 @@ def change_fleet_direction(ai_settigs,aliens):
 
 
 #Блок, отвечающий за звезды-------------------------------------------------------------------------
-def create_stars(ai_settings,screen,stars):
-    '''Создает весь массив звезд'''
-    number_stars = random.randint(50,100)
-    for star_number in range(number_stars):
-        create_star(ai_settings,screen,stars)
-
-def create_star(ai_settings,screen,stars):
-    '''Создает звезду в случайной позиции'''
-    star = Star(ai_settings,screen)
-    star.rect.x = random.randint(0,ai_settings.screen_width)
-    star.rect.y = random.randint(0, ai_settings.screen_height)
-    stars.add(star)
+# def create_stars(ai_settings,screen,stars):
+#     '''Создает весь массив звезд'''
+#     number_stars = random.randint(50,100)
+#     for star_number in range(number_stars):
+#         create_star(ai_settings,screen,stars)
+#
+# def create_star(ai_settings,screen,stars):
+#     '''Создает звезду в случайной позиции'''
+#     star = Star(ai_settings,screen)
+#     star.rect.x = random.randint(0,ai_settings.screen_width)
+#     star.rect.y = random.randint(0, ai_settings.screen_height)
+#     stars.add(star)
 #-----------------------------------------------------------------------------------------------------

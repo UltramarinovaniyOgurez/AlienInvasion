@@ -13,7 +13,8 @@ class Settings():
 
 
         #Настройки корабля
-        self.ship_speed_factor = 0.5
+        self.ship_speed_factor = 1
+        self.ship_limit = 3
 
 
 
