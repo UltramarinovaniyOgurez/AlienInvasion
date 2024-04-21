@@ -21,6 +21,11 @@ def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
     ship.center_ship()
     #Пауза
     sleep(0.5)
+    #Изменяем флаг активности игры при потере 3х кораблей
+    if stats.ships_left == 0:
+        stats.game_active = False
+    print(stats.ships_left)
+    print(stats.game_active)
 
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
@@ -70,7 +75,7 @@ def check_events(ai_settings,screen,ship,bullets):
             check_keyup_events(event, ship)
 
 
-def update_screen(ai_settings,screen,ship,aliens,bullets):
+def update_screen(ai_settings,screen,stats,ship,aliens,bullets,play_button):
     '''Обновляет изображения на экране и отображает новый экран'''
     # При каждом проходе цикла перерисовывается экран
 
@@ -92,6 +97,8 @@ def update_screen(ai_settings,screen,ship,aliens,bullets):
     # Вывод корабля в текущей позиции
     ship.bltime()
     aliens.draw(screen)
+    if not stats.game_active:
+        play_button.draw_button()
     # Отображение последнего прорисованного экрана
     pygame.display.flip()
 

@@ -4,6 +4,8 @@ class GameStats():
         '''Инициализыция статистики'''
         self.ai_settings = ai_settings
         self.reset_stats()
+        #Флаг для запуска игры в неактивном состоянии
+        self.game_active = False
 
 
     def reset_stats(self):
