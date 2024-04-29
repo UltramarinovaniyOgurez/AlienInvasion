@@ -28,7 +28,7 @@ class Alien(Sprite):
         # self.image.set_colorkey((0, 0, 0))
 
         #Другой корабль
-        self.image = pygame.image.load('images/ufo2.png')
+        self.image = pygame.image.load('images/alien.bmp')
         self.image.set_colorkey((255,255,255))
 
         self.rect = self.image.get_rect()

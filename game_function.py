@@ -84,6 +84,7 @@ def chek_play_button(ai_settings, screen, stats, play_button, ship, aliens, bull
     '''Запуск новой игры по нажатию кнопки Play'''
     button_cliked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_cliked and not stats.game_active:
+        ai_settings.initialize_dinamic_settings()
         #Скрываем указатель мыши
         pygame.mouse.set_visible(False)
         # Сброс игровой статистики
@@ -96,7 +97,7 @@ def chek_play_button(ai_settings, screen, stats, play_button, ship, aliens, bull
         ship.center_ship()
 
 
-def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button):
+def update_screen(ai_settings, screen, stats,sb, ship, aliens, bullets, play_button):
     '''Обновляет изображения на экране и отображает новый экран'''
     # При каждом проходе цикла перерисовывается экран
 
@@ -110,13 +111,15 @@ def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button
     # for star in stars.sprites():
     #     star.bltime()
     # -----------------------------------------------------------------------------------------------------------------------
-
+    #Вывод счета
+    sb.show_score()
     # Вывод на экран всех пуль из группы bullets
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     # Вывод корабля в текущей позиции
     ship.bltime()
     aliens.draw(screen)
+    #Кнопка Play отображается только если игра неактивна
     if not stats.game_active:
         play_button.draw_button()
     # Отображение последнего прорисованного экрана
@@ -141,6 +144,7 @@ def chek_bullets_alien_collisions(ai_settings, screen, ship, aliens, bullets):
     if len(aliens) == 0:
         # Уничтожаем старые пули, создаем новый флот
         bullets.empty()
+        ai_settings.increase_speed()
         create_fleet(ai_settings, screen, ship, aliens)
 
 
